@@ -10,7 +10,18 @@ class ViewTest(TestCase):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)    
         self.assertTemplateUsed(response, 'Weather_app.html') 
+    
+    @patch("app.views.requests.get")
+    def test_weather_page(self, mock_get):
+        mock_response = Mock()
+        mock_response.return_value.status_code = 200
+        mock_response.return_value.json.return_value = {"key" : "value"}
 
+        response = self.client.get(reverse("weather"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"key" : "value"})
+        self.assertTemplateUsed(response, 'App.html')
 class URLTest(TestCase):
     def test_url_home(self):
         url = reverse("home")
