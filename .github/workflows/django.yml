@@ -24,7 +24,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r Weather-App-CICD/DOCKER_DJANGO/app/requirements.txt
+        pip install -r Weather-App-CICD/DOCKER_DJANGO/requirements.txt
     - name: Run Tests
       run: |
-        python Weather-App-CICD/DOCKER_DJANGO/DOCKER_DJANGO/manage.py test
+        python Weather-App-CICD/DOCKER_DJANGO/manage.py test
