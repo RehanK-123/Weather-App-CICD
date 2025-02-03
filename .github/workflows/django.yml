@@ -27,4 +27,4 @@ jobs:
         pip install -r DOCKER_DJANGO/requirements.txt
     - name: Run Tests
       run: |
-        python DOCKER_DJANGO/manage.py test
+        python DOCKER_DJANGO/manage.py test DOCKER_DJANGO/app
