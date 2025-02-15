@@ -14,14 +14,15 @@ class ViewTest(TestCase):
     @patch("app.views.requests.get")
     def test_weather_page(self, mock_get):
         mock_response = Mock()
-        mock_response.return_value.status_code = 200
-        mock_response.return_value.json.return_value = {"key" : "value"}
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"data" : {"values" : {"cloudCover" : 1,"humidity" : 2, "temperature" : 3, "precipitationProbability" : 4, "windSpeed" : 5, "temperatureApparent" : 6}}}
+        mock_get.return_value = mock_response
 
-        response = self.client.get(reverse("weather"))
+        response = self.client.post(reverse("weather"), {"city" : "Pune"})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"key" : "value"})
         self.assertTemplateUsed(response, 'App.html')
+
 class URLTest(TestCase):
     def test_url_home(self):
         url = reverse("home")
